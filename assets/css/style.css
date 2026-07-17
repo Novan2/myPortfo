@@ -88,7 +88,8 @@ ul {
 .section-subtitle {
     font-family: var(--font-code);
     color: var(--accent-primary);
-    font-size: 0.9rem;
+    font-size: 1.2rem;
+    font-weight: 560;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 10px;
@@ -540,7 +541,7 @@ header.scrolled {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    transform: scale(1.2); /* Zoom permanen 20% */
+    transform: scale(1.2);
     transition: var(--transition-medium);
 }
 
@@ -727,6 +728,14 @@ header.scrolled {
     color: var(--text-primary);
     font-family: var(--font-main);
     transition: var(--transition-fast);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    width: 100%;
+    max-width: 100%; 
+    min-height: 120px;
+    max-height: 350px;
 }
 
 .contact-form input:focus,
