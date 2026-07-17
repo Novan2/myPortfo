@@ -1,0 +1,25 @@
+{
+  "name": "myportfo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Ayam Goreng Nyata\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Novan2/myPortfo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Novan2/myPortfo/issues"
+  },
+  "homepage": "https://github.com/Novan2/myPortfo#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mysql2": "^3.23.0"
+  }
+}

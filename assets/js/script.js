@@ -163,6 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
+            // Ambil data dari form
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
             // Get button to show loading state
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
@@ -170,11 +175,28 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
             submitBtn.disabled = true;
             
-            // Simulate network request
-            setTimeout(() => {
-                formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Pesan berhasil dikirim! Saya akan segera menghubungi Anda.</span>';
-                contactForm.reset();
-                
+            // Send request to backend
+            fetch('http://localhost:3000/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, email, message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Pesan berhasil dikirim! Saya akan segera menghubungi Anda.</span>';
+                    contactForm.reset();
+                } else {
+                    formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Terjadi kesalahan: ' + (data.error || 'Gagal menyimpan pesan') + '</span>';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal menghubungi server. Pastikan backend berjalan.</span>';
+            })
+            .finally(() => {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 
@@ -182,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     formStatus.innerHTML = '';
                 }, 5000);
-            }, 1500);
+            });
         });
     }
 });

@@ -74,8 +74,15 @@ ul {
     padding: 100px 5%;
 }
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
 .section-header {
     margin-bottom: 50px;
+    text-align: left;
 }
 
 .section-subtitle {
@@ -284,12 +291,11 @@ header.scrolled {
     min-height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
     position: relative;
 }
 
 .hero-container {
-    max-width: 1200px;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 50px;
@@ -454,8 +460,6 @@ header.scrolled {
 }
 
 .about-container {
-    max-width: 1200px;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
@@ -504,18 +508,17 @@ header.scrolled {
 
 .about-image-wrapper {
     position: relative;
-    width: 100%;
-    padding-right: 20px;
-    padding-bottom: 20px;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .about-image-wrapper::before {
     content: '';
     position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 90%;
-    height: 90%;
+    left: 25px;
+    top: 25px;
+    width: 100%;
+    aspect-ratio: 1/1;
     border: 2px solid var(--accent-primary);
     border-radius: 20px;
     z-index: 1;
@@ -524,7 +527,7 @@ header.scrolled {
 .about-image-frame {
     position: relative;
     z-index: 2;
-    aspect-ratio: 4/5;
+    aspect-ratio: 1/1;
     width: 100%;
     overflow: hidden;
     display: flex;
@@ -532,18 +535,23 @@ header.scrolled {
     justify-content: center;
 }
 
-.placeholder-image {
-    font-size: 5rem;
-    color: var(--text-secondary);
-    opacity: 0.5;
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: var(--transition-medium);
+}
+
+.about-image-frame:hover .profile-img {
+    transform: scale(1.05);
 }
 
 /* ==========================================================================
    Projects Section
    ========================================================================== */
 .projects-section {
-    max-width: 1200px;
-    margin: 0 auto;
+    /* Container style applied from HTML */
 }
 
 .projects-grid {
@@ -653,8 +661,6 @@ header.scrolled {
 }
 
 .contact-container {
-    max-width: 1000px;
-    margin: 0 auto;
     padding: 50px;
     display: grid;
     grid-template-columns: 1fr 1fr;
