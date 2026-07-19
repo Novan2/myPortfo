@@ -68,6 +68,7 @@ ul {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     display: inline-block;
+    /* font-size: 56px; */
 }
 
 .section-padding {
@@ -453,6 +454,139 @@ header.scrolled {
     color: #d2a8ff;
 }
 
+/* Playful Hero Typography Update */
+.hero-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.portfolio-playful-fullscreen {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-primary);
+    /* Ensures background is solid */
+    overflow: hidden;
+}
+
+.portfolio-playful {
+    font-size: clamp(3rem, 12vw, 150px);
+    font-weight: 800;
+    display: flex;
+    color: var(--text-primary);
+    z-index: 2;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.04em;
+}
+
+.portfolio-playful .letter {
+    display: inline-block;
+    transform: translateY(var(--offset));
+    margin: 0 -3px;
+    /* Extra tight kerning */
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.i-group {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.hollow-dot {
+    position: absolute;
+    top: 38px;
+    left: 12px;
+    width: 20px;
+    height: 20px;
+    border: 5px solid var(--text-primary);
+    border-radius: 50%;
+    /* Keep it centered above the I */
+}
+
+
+.hero-content-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+    z-index: 2;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+/* Decorative Shapes for Playful Hero */
+/* NOTE: left/top intentionally 0 — JS (figma-motion.js) drives position via
+   composite transform: translate() rotate() scale()                          */
+.playful-shape {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    opacity: 0.85;
+    transform-origin: center center;
+    will-change: transform;
+}
+
+/* Ellipse — filled circle, Figma color #9DEBE9 */
+.shape-ellipse {
+    width: 36.73px;
+    height: 36.73px;
+    background-color: #9DEBE9;
+    border-radius: 50%;
+}
+
+/* Rounded Rectangle — Figma color #9DEBE9 */
+.shape-dot {
+    width: 36.73px;
+    height: 36.73px;
+    background-color: #9DEBE9;
+    border-radius: 8px;
+}
+
+/* Star icon wrapper */
+.shape-star {
+    font-size: 48px;
+    color: var(--accent-tertiary);
+    line-height: 1;
+}
+
+@keyframes spin-float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(180deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(360deg);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
 /* ==========================================================================
    About Section
    ========================================================================== */
@@ -546,7 +680,8 @@ header.scrolled {
 }
 
 .about-image-frame:hover .profile-img {
-    transform: scale(1.25); /* Bertambah sedikit saat di-hover */
+    transform: scale(1.25);
+    /* Bertambah sedikit saat di-hover */
 }
 
 /* ==========================================================================
@@ -733,7 +868,7 @@ header.scrolled {
 .contact-form textarea {
     resize: vertical;
     width: 100%;
-    max-width: 100%; 
+    max-width: 100%;
     min-height: 120px;
     max-height: 350px;
 }
@@ -822,6 +957,26 @@ footer {
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Typing Effect Cursor */
+/* .typing-text {
+    white-space: nowrap;
+    display: inline-block;
+    min-width: 18ch;
+    text-align: left;
+} */
+
+.typing-text::after {
+    content: "|";
+    animation: blink 1s step-start infinite;
+    color: var(--primary-color);
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
 }
 
 /* ==========================================================================

@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@700;800;900&family=Fira+Code:wght@400;500;600&display=swap"
         rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -43,54 +43,31 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="home" class="hero-section section-padding reveal">
-            <div class="container">
-                <div class="hero-container">
-                <div class="hero-content">
-                    <p class="hero-sub"><i class="fa-solid fa-hand-sparkles"></i> Hello world, I am</p>
-                    <h1 class="hero-title">Novan <br><span class="text-gradient">Tech Enthusiast & Web
-                            Designer.</span></h1>
-                    <p class="hero-desc">Saya seorang mahasiswa Teknologi Informasi yang bersemangat membangun
-                        pengalaman digital modern. Berfokus pada perpaduan antara desain visual yang memukau dan kode
-                        yang efisien.</p>
-
-                    <div class="social-links-hero">
-                        <a href="#" target="_blank" class="social-icon" aria-label="GitHub"><i
-                                class="fa-brands fa-github"></i></a>
-                        <a href="#" target="_blank" class="social-icon" aria-label="LinkedIn"><i
-                                class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="#" target="_blank" class="social-icon" aria-label="Instagram"><i
-                                class="fa-brands fa-instagram"></i></a>
-                        <a href="#" target="_blank" class="social-icon" aria-label="Dribbble"><i
-                                class="fa-brands fa-dribbble"></i></a>
-                    </div>
-
-                    <div class="hero-cta">
-                        <a href="#projects" class="btn btn-primary">View Work <i
-                                class="fa-solid fa-arrow-right"></i></a>
-                        <a href="#contact" class="btn btn-secondary">Contact Me</a>
-                    </div>
+        <section id="home" class="hero-section reveal">
+            <div class="portfolio-playful-fullscreen">
+                <!-- Decorative Shapes -->
+                <div class="playful-shape shape-ellipse"></div>
+                <div class="playful-shape shape-dot"></div>
+                <div class="playful-shape shape-star">
+                    <i class="fa-solid fa-star"></i>
                 </div>
-                <div class="hero-visual">
-                    <div class="glow-shape shape-1"></div>
-                    <div class="glow-shape shape-2"></div>
-                    <div class="glass-card mockup-card">
-                        <div class="mac-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                        </div>
-                        <div class="code-block">
-                            <pre><code><span class="keyword">const</span> <span class="variable">developer</span> = {
-  <span class="property">name</span>: <span class="string">"novan"</span>,
-  <span class="property">role</span>: <span class="string">"Frontend Dev & UI/UX"</span>,
-  <span class="property">passion</span>: [<span class="string">"Coding"</span>, <span class="string">"Design"</span>, <span class="string">"Coffee"</span>]
-};</code></pre>
-                        </div>
-                    </div>
-                </div>
+
+                <!-- Playful Text -->
+                <h1 class="portfolio-playful">
+                    <span class="letter" style="--offset: 0px">P</span>
+                    <span class="letter" style="--offset: 0px">O</span>
+                    <span class="letter" style="--offset: 0px">R</span>
+                    <span class="letter" style="--offset: -40px; margin-left: -15px;">T</span>
+                    <span class="letter" style="--offset: 18px; margin-left: -25px;">F</span>
+                    <span class="letter" style="--offset: 34px">O</span>
+                    <span class="letter" style="--offset: -28px">L</span>
+                    <span class="letter i-group" style="--offset: -70px">
+                        I
+                        <span class="hollow-dot"></span>
+                    </span>
+                    <span class="letter" style="--offset: -12px">O</span>
+                </h1>
             </div>
-        </div>
         </section>
 
         <!-- About Section -->
@@ -287,6 +264,7 @@
     </footer>
 
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/figma-motion.js"></script>
 </body>
 
 </html>

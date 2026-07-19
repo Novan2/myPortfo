@@ -11,11 +11,25 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ==========================================================================
        Custom Cursor Logic
        ========================================================================== */
-    const cursor = document.querySelector('.custom-cursor');
-    const cursorDot = document.querySelector('.custom-cursor-dot');
+    const customCursor = document.querySelector('.custom-cursor');
+    const customCursorDot = document.querySelector('.custom-cursor-dot');
+    
+    // Add custom cursor style for playful hero text
+    const playfulLetters = document.querySelectorAll('.portfolio-playful .letter');
+    playfulLetters.forEach(letter => {
+        letter.addEventListener('mouseenter', () => {
+            customCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            customCursor.style.borderColor = 'var(--accent-primary)';
+        });
+        letter.addEventListener('mouseleave', () => {
+            customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+    });
     
     // Check if device supports hover (ignore touch devices)
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const cursor = document.querySelector('.custom-cursor');
+    const cursorDot = document.querySelector('.custom-cursor-dot');
     
     if (!isTouchDevice && cursor && cursorDot) {
         document.addEventListener('mousemove', (e) => {
@@ -206,5 +220,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 5000);
             });
         });
+    }
+
+    /* ==========================================================================
+       Typing Effect
+       ========================================================================== */
+    const typingText = document.querySelector('.typing-text');
+    if (typingText) {
+        const roles = ["Tech Enthusiast", "Web Designer", "UI/UX Engineer", "Frontend Developer"];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function type() {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            let typeSpeed = isDeleting ? 50 : 100;
+            
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeSpeed = 2000; // Pause at end
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500; // Pause before typing new word
+            }
+            
+            setTimeout(type, typeSpeed);
+        }
+        
+        // Start typing
+        setTimeout(type, 1000);
     }
 });
