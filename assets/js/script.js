@@ -1,5 +1,18 @@
+/* ==========================================================================
+   Preloader Logic
+   ========================================================================== */
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        // Tambahkan delay sedikit (misal 1 detik) agar efeknya terlihat jelas
+        setTimeout(() => {
+            preloader.classList.add('fade-out');
+        }, 1000);
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     /* ==========================================================================
        Set Current Year in Footer
        ========================================================================== */
@@ -13,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
        ========================================================================== */
     const customCursor = document.querySelector('.custom-cursor');
     const customCursorDot = document.querySelector('.custom-cursor-dot');
-    
+
     // Add custom cursor style for playful hero text
     const playfulLetters = document.querySelectorAll('.portfolio-playful .letter');
     playfulLetters.forEach(letter => {
@@ -25,19 +38,19 @@ document.addEventListener('DOMContentLoaded', () => {
             customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
         });
     });
-    
+
     // Check if device supports hover (ignore touch devices)
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     const cursor = document.querySelector('.custom-cursor');
     const cursorDot = document.querySelector('.custom-cursor-dot');
-    
+
     if (!isTouchDevice && cursor && cursorDot) {
         document.addEventListener('mousemove', (e) => {
             // Use requestAnimationFrame for smoother performance
             requestAnimationFrame(() => {
                 cursor.style.left = `${e.clientX}px`;
                 cursor.style.top = `${e.clientY}px`;
-                
+
                 cursorDot.style.left = `${e.clientX}px`;
                 cursorDot.style.top = `${e.clientY}px`;
             });
@@ -45,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add hover effect to interactive elements
         const interactives = document.querySelectorAll('a, button, input, textarea, .glass-card');
-        
+
         interactives.forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.classList.add('hover');
@@ -60,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
        Header Scroll Effect
        ========================================================================== */
     const header = document.querySelector('header');
-    
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
@@ -99,15 +112,15 @@ document.addEventListener('DOMContentLoaded', () => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            
+
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
-            
+
             if (targetElement) {
                 const headerHeight = document.querySelector('header').offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -118,15 +131,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Active Navigation Link on Scroll
     const sections = document.querySelectorAll('section');
-    
+
     window.addEventListener('scroll', () => {
         let current = '';
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
             const headerHeight = document.querySelector('header').offsetHeight;
-            
+
             // Allow for a little offset so it activates right before section hits the top
             if (pageYOffset >= (sectionTop - headerHeight - 100)) {
                 current = section.getAttribute('id');
@@ -145,13 +158,13 @@ document.addEventListener('DOMContentLoaded', () => {
        Scroll Reveal Animations (Intersection Observer)
        ========================================================================== */
     const revealElements = document.querySelectorAll('.reveal');
-    
+
     const revealOptions = {
         threshold: 0.15,
         rootMargin: "0px 0px -50px 0px"
     };
 
-    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+    const revealOnScroll = new IntersectionObserver(function (entries, observer) {
         entries.forEach(entry => {
             if (!entry.isIntersecting) {
                 return;
@@ -176,19 +189,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             // Ambil data dari form
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
-            
+
             // Get button to show loading state
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
-            
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
+
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
-            
+
             // Send request to backend
             fetch('http://localhost:3000/api/contact', {
                 method: 'POST',
@@ -197,28 +210,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({ name, email, message })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Pesan berhasil dikirim! Saya akan segera menghubungi Anda.</span>';
-                    contactForm.reset();
-                } else {
-                    formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Terjadi kesalahan: ' + (data.error || 'Gagal menyimpan pesan') + '</span>';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal menghubungi server. Pastikan backend berjalan.</span>';
-            })
-            .finally(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                
-                // Clear success message after 5 seconds
-                setTimeout(() => {
-                    formStatus.innerHTML = '';
-                }, 5000);
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Message sent successfully! I will contact you soon.</span>';
+                        contactForm.reset();
+                    } else {
+                        formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> An error occurred: ' + (data.error || 'Failed to save message') + '</span>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Failed to contact server. Ensure backend is running.</span>';
+                })
+                .finally(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+
+                    // Clear success message after 5 seconds
+                    setTimeout(() => {
+                        formStatus.innerHTML = '';
+                    }, 5000);
+                });
         });
     }
 
@@ -231,10 +244,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let roleIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
-        
+
         function type() {
             const currentRole = roles[roleIndex];
-            
+
             if (isDeleting) {
                 typingText.textContent = currentRole.substring(0, charIndex - 1);
                 charIndex--;
@@ -242,9 +255,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 typingText.textContent = currentRole.substring(0, charIndex + 1);
                 charIndex++;
             }
-            
+
             let typeSpeed = isDeleting ? 50 : 100;
-            
+
             if (!isDeleting && charIndex === currentRole.length) {
                 typeSpeed = 2000; // Pause at end
                 isDeleting = true;
@@ -253,10 +266,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 roleIndex = (roleIndex + 1) % roles.length;
                 typeSpeed = 500; // Pause before typing new word
             }
-            
+
             setTimeout(type, typeSpeed);
         }
-        
+
         // Start typing
         setTimeout(type, 1000);
     }

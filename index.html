@@ -14,10 +14,18 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css"> 
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <i class="fa-solid fa-star preloader-star"></i>
+            <h2 class="loader-text">nvn</h2>
+        </div>
+    </div>
 
     <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
@@ -43,30 +51,17 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="home" class="hero-section reveal">
-            <div class="portfolio-playful-fullscreen">
-                <!-- Decorative Shapes -->
-                <div class="playful-shape shape-ellipse"></div>
-                <div class="playful-shape shape-dot"></div>
-                <div class="playful-shape shape-star">
-                    <i class="fa-solid fa-star"></i>
-                </div>
-
-                <!-- Playful Text -->
-                <h1 class="portfolio-playful">
-                    <span class="letter" style="--offset: 0px">P</span>
-                    <span class="letter" style="--offset: 0px">O</span>
-                    <span class="letter" style="--offset: 0px">R</span>
-                    <span class="letter" style="--offset: -40px; margin-left: -15px;">T</span>
-                    <span class="letter" style="--offset: 18px; margin-left: -25px;">F</span>
-                    <span class="letter" style="--offset: 34px">O</span>
-                    <span class="letter" style="--offset: -28px">L</span>
-                    <span class="letter i-group" style="--offset: -70px">
-                        I
-                        <span class="hollow-dot"></span>
-                    </span>
-                    <span class="letter" style="--offset: -12px">O</span>
-                </h1>
+        <section id="home" class="hero-section">
+            <img class="hero-bg" src="bg1.jpeg" alt="Hero Background">
+            <video class="hero-video-overlay" autoplay loop muted playsinline>
+                <source src="Frame2.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
+            
+            <!-- Call to Action -->
+            <div class="hero-cta-wrapper">
+                <a href="#about" class="btn btn-glass">About Me <i class="fa-solid fa-user"></i></a>
+                <a href="#contact" class="btn btn-glass">Contact <i class="fa-solid fa-envelope"></i></a>
             </div>
         </section>
 
@@ -74,176 +69,176 @@
         <section id="about" class="about-section section-padding reveal">
             <div class="container">
                 <div class="section-header">
-                <p class="section-subtitle">Who Am I</p>
-                <h2 class="section-title">About <span class="text-gradient">Me</span></h2>
-            </div>
-            <div class="about-container">
-                <div class="about-text">
-                    <p>Saya adalah seorang mahasiswa jurusan Teknologi Informasi yang memiliki ketertarikan mendalam
-                        pada pengembangan web (Frontend) dan desain UI/UX. Saya percaya bahwa desain yang baik tidak
-                        hanya terlihat indah, tetapi juga harus memecahkan masalah pengguna secara efektif.</p>
-                    <p>Perjalanan saya di dunia teknologi dimulai dengan rasa ingin tahu, dan kini telah berkembang
-                        menjadi passion untuk terus belajar teknologi baru dan menerapkan <i>best practices</i> dalam
-                        setiap proyek yang saya kerjakan.</p>
-                    <div class="skills-wrapper">
-                        <h3>Tech Stack & Tools</h3>
-                        <div class="skills-grid">
-                            <div class="skill-tag"><i class="fa-brands fa-html5"></i> HTML5</div>
-                            <div class="skill-tag"><i class="fa-brands fa-css3-alt"></i> CSS3 / SCSS</div>
-                            <div class="skill-tag"><i class="fa-brands fa-js"></i> JavaScript</div>
-                            <div class="skill-tag"><i class="fa-brands fa-react"></i> React.js</div>
-                            <div class="skill-tag"><i class="fa-brands fa-figma"></i> Figma</div>
-                            <div class="skill-tag"><i class="fa-brands fa-git-alt"></i> Git</div>
+                    <p class="section-subtitle">Who Am I</p>
+                    <h2 class="section-title">About <span class="text-gradient">Me</span></h2>
+                </div>
+                <div class="about-container">
+                    <div class="about-text">
+                        <p>I am an Information Technology student with a deep interest in web development (Frontend) and
+                            UI/UX design. I believe that good design not only looks beautiful but must also effectively
+                            solve user problems.</p>
+                        <p>My journey in the tech world began with curiosity, and has now evolved into a passion for
+                            continuously learning new technologies and applying best practices in every project I work
+                            on.</p>
+                        <div class="skills-wrapper">
+                            <h3>Tech Stack & Tools</h3>
+                            <div class="skills-grid">
+                                <div class="skill-tag"><i class="fa-brands fa-html5"></i> HTML5</div>
+                                <div class="skill-tag"><i class="fa-brands fa-css3-alt"></i> CSS3 / SCSS</div>
+                                <div class="skill-tag"><i class="fa-brands fa-js"></i> JavaScript</div>
+                                <div class="skill-tag"><i class="fa-brands fa-react"></i> React.js</div>
+                                <div class="skill-tag"><i class="fa-brands fa-figma"></i> Figma</div>
+                                <div class="skill-tag"><i class="fa-brands fa-git-alt"></i> Git</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image-wrapper">
+                        <div class="about-image-frame glass-card">
+                            <img src="assets/myPhoto.png" alt="Foto Profil Saya" class="profile-img">
                         </div>
                     </div>
                 </div>
-                <div class="about-image-wrapper">
-                    <div class="about-image-frame glass-card">
-                        <img src="assets/myPhoto.png" alt="Foto Profil Saya" class="profile-img">
-                    </div>
-                </div>
             </div>
-        </div>
         </section>
 
         <!-- Projects Section -->
         <section id="projects" class="projects-section section-padding reveal">
             <div class="container">
                 <div class="section-header">
-                <p class="section-subtitle">Portfolio</p>
-                <h2 class="section-title">Latest <span class="text-gradient">Works</span></h2>
-            </div>
-            <div class="projects-grid">
-                <!-- Project 1 -->
-                <div class="project-card glass-card">
-                    <div class="project-img-wrapper">
-                        <div class="project-img-placeholder"
-                            style="background: linear-gradient(45deg, #1f1c2c, #928DAB);">
-                            <i class="fa-solid fa-laptop-code"></i>
-                        </div>
-                        <div class="project-links-overlay">
-                            <a href="#" class="project-link" aria-label="View Live"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                            <a href="#" class="project-link" aria-label="View Source"><i
-                                    class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Task Management App</h3>
-                        <p>Sebuah aplikasi web interaktif untuk mengelola tugas harian dengan fitur drag-and-drop dan
-                            dark mode.</p>
-                        <div class="project-tech">
-                            <span>React</span>
-                            <span>Tailwind CSS</span>
-                        </div>
-                    </div>
+                    <p class="section-subtitle">Portfolio</p>
+                    <h2 class="section-title">Latest <span class="text-gradient">Works</span></h2>
                 </div>
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card glass-card">
+                        <div class="project-img-wrapper">
+                            <div class="project-img-placeholder"
+                                style="background: linear-gradient(45deg, #1f1c2c, #928DAB);">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                            <div class="project-links-overlay">
+                                <a href="#" class="project-link" aria-label="View Live"><i
+                                        class="fa-solid fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link" aria-label="View Source"><i
+                                        class="fa-brands fa-github"></i></a>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Task Management App</h3>
+                            <p>An interactive web application for managing daily tasks with drag-and-drop functionality
+                                and dark mode.</p>
+                            <div class="project-tech">
+                                <span>React</span>
+                                <span>Tailwind CSS</span>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- Project 2 -->
-                <div class="project-card glass-card">
-                    <div class="project-img-wrapper">
-                        <div class="project-img-placeholder"
-                            style="background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);">
-                            <i class="fa-solid fa-mobile-screen"></i>
+                    <!-- Project 2 -->
+                    <div class="project-card glass-card">
+                        <div class="project-img-wrapper">
+                            <div class="project-img-placeholder"
+                                style="background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);">
+                                <i class="fa-solid fa-mobile-screen"></i>
+                            </div>
+                            <div class="project-links-overlay">
+                                <a href="#" class="project-link" aria-label="View Live"><i
+                                        class="fa-solid fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link" aria-label="View Source"><i
+                                        class="fa-brands fa-github"></i></a>
+                            </div>
                         </div>
-                        <div class="project-links-overlay">
-                            <a href="#" class="project-link" aria-label="View Live"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                            <a href="#" class="project-link" aria-label="View Source"><i
-                                    class="fa-brands fa-github"></i></a>
+                        <div class="project-info">
+                            <h3>E-Commerce UI Redesign</h3>
+                            <p>A UI redesign exploration for an e-commerce application focusing on conversion rates and
+                                user experience.</p>
+                            <div class="project-tech">
+                                <span>Figma</span>
+                                <span>UI/UX</span>
+                                <span>Frontend</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="project-info">
-                        <h3>E-Commerce UI Redesign</h3>
-                        <p>Eksplorasi desain ulang antarmuka pengguna aplikasi e-commerce yang berfokus pada konversi
-                            dan pengalaman pengguna.</p>
-                        <div class="project-tech">
-                            <span>Figma</span>
-                            <span>UI/UX</span>
-                            <span>Frontend</span>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Project 3 -->
-                <div class="project-card glass-card">
-                    <div class="project-img-wrapper">
-                        <div class="project-img-placeholder"
-                            style="background: linear-gradient(45deg, #11998e, #38ef7d);">
-                            <i class="fa-solid fa-cloud-sun"></i>
+                    <!-- Project 3 -->
+                    <div class="project-card glass-card">
+                        <div class="project-img-wrapper">
+                            <div class="project-img-placeholder"
+                                style="background: linear-gradient(45deg, #11998e, #38ef7d);">
+                                <i class="fa-solid fa-cloud-sun"></i>
+                            </div>
+                            <div class="project-links-overlay">
+                                <a href="#" class="project-link" aria-label="View Live"><i
+                                        class="fa-solid fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link" aria-label="View Source"><i
+                                        class="fa-brands fa-github"></i></a>
+                            </div>
                         </div>
-                        <div class="project-links-overlay">
-                            <a href="#" class="project-link" aria-label="View Live"><i
-                                    class="fa-solid fa-external-link-alt"></i></a>
-                            <a href="#" class="project-link" aria-label="View Source"><i
-                                    class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Modern Weather Dashboard</h3>
-                        <p>Dashboard cuaca real-time yang memanfaatkan API eksternal untuk menampilkan data dengan
-                            visualisasi yang menarik.</p>
-                        <div class="project-tech">
-                            <span>JavaScript</span>
-                            <span>API</span>
-                            <span>CSS Grid</span>
+                        <div class="project-info">
+                            <h3>Modern Weather Dashboard</h3>
+                            <p>A real-time weather dashboard utilizing external APIs to display data with engaging
+                                visualizations.</p>
+                            <div class="project-tech">
+                                <span>JavaScript</span>
+                                <span>API</span>
+                                <span>CSS Grid</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="projects-cta text-center">
+                    <a href="https://github.com/novan" target="_blank" class="btn btn-outline">View More Projects on
+                        GitHub</a>
+                </div>
             </div>
-            <div class="projects-cta text-center">
-                <a href="https://github.com/novan" target="_blank" class="btn btn-outline">Lihat Proyek Lainnya di
-                    GitHub</a>
-            </div>
-        </div>
         </section>
 
         <!-- Contact Section -->
         <section id="contact" class="contact-section section-padding reveal">
             <div class="container">
                 <div class="contact-container glass-card">
-                <div class="contact-info">
-                    <h2 class="section-title">Let's <span class="text-gradient">Work Together</span></h2>
-                    <p>Tertarik untuk berkolaborasi dalam proyek web atau desain? Jangan ragu untuk menghubungi saya
-                        melalui formulir di samping atau melalui email secara langsung.</p>
+                    <div class="contact-info">
+                        <h2 class="section-title">Let's <span class="text-gradient">Work Together</span></h2>
+                        <p>Interested in collaborating on a web or design project? Feel free to reach out using the form
+                            below or email me directly.</p>
 
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fa-solid fa-envelope"></i>
-                            <div>
-                                <h4>Email</h4>
-                                <a href="mailto:hello@novan.dev">hello@novan.dev</a>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <i class="fa-solid fa-envelope"></i>
+                                <div>
+                                    <h4>Email</h4>
+                                    <a href="mailto:hello@novan.dev">hello@novan.dev</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <div>
-                                <h4>Location</h4>
-                                <p>Indonesia</p>
+                            <div class="contact-item">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div>
+                                    <h4>Location</h4>
+                                    <p>Indonesia</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="address@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4" required
+                                placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Send Message <i
+                                class="fa-solid fa-paper-plane"></i></button>
+                        <div class="form-status" id="formStatus"></div>
+                    </form>
                 </div>
-
-                <form id="contactForm" class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="alamat@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="4" required
-                            placeholder="Tell me about your project..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Send Message <i
-                            class="fa-solid fa-paper-plane"></i></button>
-                    <div class="form-status" id="formStatus"></div>
-                </form>
-            </div>
             </div>
         </section>
     </main>
@@ -259,12 +254,11 @@
         </div>
         <div class="footer-bottom">
             <p>&copy; <span id="currentYear"></span> nvn. Built with <i class="fa-solid fa-heart"
-                    style="color: #ff3366;"></i> dan Agent.</p>
+                    style="color: #ff3366;"></i> and Agent.</p>
         </div>
     </footer>
 
     <script src="assets/js/script.js"></script>
-    <script src="assets/js/figma-motion.js"></script>
 </body>
 
 </html>
