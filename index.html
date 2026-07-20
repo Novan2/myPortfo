@@ -20,12 +20,12 @@
 <body>
 
     <!-- Preloader -->
-    <div id="preloader">
+    <!-- <div id="preloader">
         <div class="loader-content">
             <i class="fa-solid fa-square preloader-diamond"></i>
             <h2 class="loader-text">nvn</h2>
         </div>
-    </div>
+    </div> -->
 
     <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
@@ -67,6 +67,7 @@
 
         <!-- About Section -->
         <section id="about" class="about-section section-padding reveal">
+            <div class="about-bg-custom"></div>
             <div class="container">
                 <div class="section-header">
                     <p class="section-subtitle">Who Am I</p>
@@ -92,9 +93,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="about-image-wrapper">
-                        <div class="about-image-frame glass-card">
-                            <img src="assets/myPhoto.png" alt="Foto Profil Saya" class="profile-img">
+                    <div class="about-image-wrapper perspective-container">
+                        <div class="about-image-frame glass-card nametag-card" id="nametagCard">
+                            <div class="nametag-clip">
+                                <div class="clip-hole"></div>
+                            </div>
+                            <div class="nametag-photo-container">
+                                <img src="assets/myPhoto.png" alt="Foto Profil Saya" class="profile-img">
+                            </div>
+                            <div class="nametag-info">
+                                <h3>Novan</h3>
+                                <p class="text-gradient">Frontend Dev & Designer</p>
+                                <div class="nametag-barcode">
+                                    <i class="fa-solid fa-barcode"></i>
+                                    <i class="fa-solid fa-barcode"></i>
+                                    <i class="fa-solid fa-barcode"></i>
+                                    <i class="fa-solid fa-barcode"></i>
+                                    <i class="fa-solid fa-barcode"></i>
+                                    <i class="fa-solid fa-barcode"></i>
+                                </div>
+                            </div>
+                            <div class="nametag-glare" id="nametagGlare"></div>
                         </div>
                     </div>
                 </div>
@@ -114,22 +133,19 @@
                         <div class="project-img-wrapper">
                             <div class="project-img-placeholder"
                                 style="background: linear-gradient(45deg, #1f1c2c, #928DAB);">
-                                <i class="fa-solid fa-laptop-code"></i>
+                                <i class="fa-solid fa-users"></i>
                             </div>
                             <div class="project-links-overlay">
-                                <a href="#" class="project-link" aria-label="View Live"><i
-                                        class="fa-solid fa-external-link-alt"></i></a>
-                                <a href="#" class="project-link" aria-label="View Source"><i
+                                <a href="https://github.com/Novan2/PWSK-Tugas-Team" target="_blank" class="project-link" aria-label="View Source"><i
                                         class="fa-brands fa-github"></i></a>
                             </div>
                         </div>
                         <div class="project-info">
-                            <h3>Task Management App</h3>
-                            <p>An interactive web application for managing daily tasks with drag-and-drop functionality
-                                and dark mode.</p>
+                            <h3>PWSK-Tugas-Team</h3>
+                            <p>Tugas team repository for PWSK.</p>
                             <div class="project-tech">
-                                <span>React</span>
-                                <span>Tailwind CSS</span>
+                                <span>JavaScript</span>
+                                <span>Team Work</span>
                             </div>
                         </div>
                     </div>
@@ -139,23 +155,19 @@
                         <div class="project-img-wrapper">
                             <div class="project-img-placeholder"
                                 style="background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);">
-                                <i class="fa-solid fa-mobile-screen"></i>
+                                <i class="fa-solid fa-cart-shopping"></i>
                             </div>
                             <div class="project-links-overlay">
-                                <a href="#" class="project-link" aria-label="View Live"><i
-                                        class="fa-solid fa-external-link-alt"></i></a>
-                                <a href="#" class="project-link" aria-label="View Source"><i
+                                <a href="https://github.com/Novan2/PPB2026_Kelompok04_BlueMart" target="_blank" class="project-link" aria-label="View Source"><i
                                         class="fa-brands fa-github"></i></a>
                             </div>
                         </div>
                         <div class="project-info">
-                            <h3>E-Commerce UI Redesign</h3>
-                            <p>A UI redesign exploration for an e-commerce application focusing on conversion rates and
-                                user experience.</p>
+                            <h3>BlueMart (PPB2026)</h3>
+                            <p>Mobile application project built with Dart/Flutter for Kelompok 04.</p>
                             <div class="project-tech">
-                                <span>Figma</span>
-                                <span>UI/UX</span>
-                                <span>Frontend</span>
+                                <span>Dart</span>
+                                <span>Mobile App</span>
                             </div>
                         </div>
                     </div>
@@ -165,29 +177,25 @@
                         <div class="project-img-wrapper">
                             <div class="project-img-placeholder"
                                 style="background: linear-gradient(45deg, #11998e, #38ef7d);">
-                                <i class="fa-solid fa-cloud-sun"></i>
+                                <i class="fa-brands fa-java"></i>
                             </div>
                             <div class="project-links-overlay">
-                                <a href="#" class="project-link" aria-label="View Live"><i
-                                        class="fa-solid fa-external-link-alt"></i></a>
-                                <a href="#" class="project-link" aria-label="View Source"><i
+                                <a href="https://github.com/Novan2/PBO-GUI-JAVA" target="_blank" class="project-link" aria-label="View Source"><i
                                         class="fa-brands fa-github"></i></a>
                             </div>
                         </div>
                         <div class="project-info">
-                            <h3>Modern Weather Dashboard</h3>
-                            <p>A real-time weather dashboard utilizing external APIs to display data with engaging
-                                visualizations.</p>
+                            <h3>PBO-GUI-JAVA</h3>
+                            <p>Kelompok GUI.java - Java GUI programming assignment.</p>
                             <div class="project-tech">
-                                <span>JavaScript</span>
-                                <span>API</span>
-                                <span>CSS Grid</span>
+                                <span>Java</span>
+                                <span>GUI</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="projects-cta text-center">
-                    <a href="https://github.com/novan" target="_blank" class="btn btn-outline">View More Projects on
+                    <a href="https://github.com/Novan2" target="_blank" class="btn btn-outline">View More Projects on
                         GitHub</a>
                 </div>
             </div>
@@ -207,14 +215,14 @@
                                 <i class="fa-solid fa-envelope"></i>
                                 <div>
                                     <h4>Email</h4>
-                                    <a href="mailto:hello@novan.dev">hello@novan.dev</a>
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=liemnovan@gmail.com" target="_blank" rel="noopener noreferrer">liemnovan@gmail.com</a>
                                 </div>
                             </div>
                             <div class="contact-item">
                                 <i class="fa-solid fa-location-dot"></i>
                                 <div>
                                     <h4>Location</h4>
-                                    <p>Indonesia</p>
+                                    <a href="https://www.google.com/maps/place/Denpasar,+Bali" target="_blank" rel="noopener noreferrer">Bali</a>
                                 </div>
                             </div>
                         </div>
@@ -253,8 +261,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; <span id="currentYear"></span> nvn. Built with <i class="fa-solid fa-heart"
-                    style="color: #ff3366;"></i> and Agent.</p>
+            <p>&copy; <span id="currentYear"></span> nvn.</p>
         </div>
     </footer>
 

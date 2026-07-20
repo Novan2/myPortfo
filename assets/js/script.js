@@ -292,4 +292,67 @@ document.addEventListener('DOMContentLoaded', () => {
         // Start typing
         setTimeout(type, 1000);
     }
+
+    /* ==========================================================================
+       3D Nametag Effect
+       ========================================================================== */
+    const nametagCard = document.getElementById('nametagCard');
+    const nametagGlare = document.getElementById('nametagGlare');
+    const perspectiveContainer = document.querySelector('.perspective-container');
+
+    if (nametagCard && perspectiveContainer) {
+        perspectiveContainer.addEventListener('mousemove', (e) => {
+            const rect = nametagCard.getBoundingClientRect();
+            // Calculate mouse position relative to card center
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Stop tracking if mouse is in the top 50% of the card
+            if (y < centerY) {
+                nametagCard.style.transition = 'transform 0.5s ease-out';
+                nametagCard.style.transform = `rotateX(0deg) rotateY(0deg)`;
+                if (nametagGlare) {
+                    nametagGlare.style.background = `radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 60%)`;
+                }
+                return;
+            }
+
+            // Restore fast transition for smooth tracking in the bottom half
+            nametagCard.style.transition = 'transform 0.1s ease-out';
+
+            // Calculate tilt (max 15 degrees)
+            const tiltX = ((y - centerY) / centerY) * -15; // Invert Y
+            const tiltY = ((x - centerX) / centerX) * 15;
+
+            // Apply 3D transform
+            nametagCard.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+
+            // Move glare
+            if (nametagGlare) {
+                const glareX = (x / rect.width) * 100;
+                const glareY = (y / rect.height) * 100;
+                nametagGlare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.15) 0%, transparent 60%)`;
+            }
+        });
+
+        perspectiveContainer.addEventListener('mouseleave', () => {
+            // Reset transform smoothly
+            nametagCard.style.transition = 'transform 0.5s ease-out';
+            nametagCard.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            if (nametagGlare) {
+                nametagGlare.style.background = `radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 60%)`;
+            }
+            
+            // Revert back to fast transition for mousemove tracking
+            setTimeout(() => {
+                nametagCard.style.transition = 'transform 0.1s ease-out';
+            }, 500);
+        });
+        
+        perspectiveContainer.addEventListener('mouseenter', () => {
+            nametagCard.style.transition = 'transform 0.1s ease-out';
+        });
+    }
 });
