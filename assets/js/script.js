@@ -1,4 +1,12 @@
 /* ==========================================================================
+   Force Scroll to Top on Refresh
+   ========================================================================== */
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
+/* ==========================================================================
    Preloader Logic
    ========================================================================== */
 window.addEventListener('load', () => {
@@ -7,7 +15,18 @@ window.addEventListener('load', () => {
         // Tambahkan delay sedikit (misal 1 detik) agar efeknya terlihat jelas
         setTimeout(() => {
             preloader.classList.add('fade-out');
+            
+            // Trigger load animations
+            setTimeout(() => {
+                document.querySelectorAll('.load-anim-top, .load-anim-bottom').forEach(el => {
+                    el.classList.add('loaded');
+                });
+            }, 300); // Slight delay after preloader starts fading
         }, 1000);
+    } else {
+        document.querySelectorAll('.load-anim-top, .load-anim-bottom').forEach(el => {
+            el.classList.add('loaded');
+        });
     }
 });
 

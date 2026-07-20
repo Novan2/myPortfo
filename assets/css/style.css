@@ -178,23 +178,36 @@ ul {
     gap: 20px;
 }
 
-.preloader-star {
-    font-size: 3.5rem;
+.preloader-diamond {
+    font-size: 3rem;
     color: var(--text-primary);
-    animation: star-drop 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: diamond-drop 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-@keyframes star-drop {
+@keyframes diamond-drop {
     0% {
-        transform: translateY(-100vh);
+        transform: translateY(-100vh) rotate(45deg);
         opacity: 0;
     }
 
     100% {
-        transform: translateY(0);
+        transform: translateY(0) rotate(405deg);
         opacity: 1;
     }
 }
+
+/* #preloader.fade-out .preloader-diamond {
+    animation: diamond-back 0.8s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+@keyframes diamond-back {
+    0% {
+        transform: translateY(0) rotate(405deg);
+    }
+    100% {
+        transform: translateY(0) rotate(45deg);
+    }
+} */
 
 .loader-text {
     font-size: 3rem;
@@ -373,15 +386,55 @@ header.scrolled {
     overflow: hidden;
 }
 
-.hero-bg {
+.hero-bg-custom {
     position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 100%;
-    height: 100vh;
-    object-fit: cover;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000312;
+    /* Deep dark base */
     z-index: 0;
+    overflow: hidden;
+}
+
+.hero-bg-custom::before,
+.hero-bg-custom::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: pulseGlow 8s infinite alternate ease-in-out;
+}
+
+.hero-bg-custom::before {
+    top: -10%;
+    left: -10%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(0, 198, 255, 0.15), transparent 70%);
+}
+
+.hero-bg-custom::after {
+    bottom: -10%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(0, 114, 255, 0.1), transparent 70%);
+    animation-delay: -4s;
+}
+
+@keyframes pulseGlow {
+    0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: scale(1.2) translate(5%, 5%);
+        opacity: 0.6;
+    }
 }
 
 .hero-video-overlay {
@@ -390,7 +443,7 @@ header.scrolled {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     z-index: 1;
     pointer-events: none;
 }
@@ -404,7 +457,6 @@ header.scrolled {
     text-align: center;
     display: flex;
     gap: 20px;
-    animation: fadeInUp 1s ease 1.5s both;
 }
 
 .btn-glass {
@@ -427,6 +479,7 @@ header.scrolled {
         opacity: 0;
         transform: translate(-50%, 20px);
     }
+
     100% {
         opacity: 1;
         transform: translate(-50%, 0);
@@ -745,6 +798,29 @@ header.scrolled {
 
 .skills-wrapper {
     margin-top: 40px;
+}
+
+/* ==========================================================================
+   Load Animations
+   ========================================================================== */
+.load-anim-top {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.load-anim-top.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.load-anim-bottom {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.load-anim-bottom.loaded {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .skills-wrapper h3 {
