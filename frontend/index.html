@@ -13,19 +13,18 @@
         rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
     <!-- Preloader -->
-    <!-- <div id="preloader">
+    <div id="preloader">
         <div class="loader-content">
             <i class="fa-solid fa-square preloader-diamond"></i>
             <h2 class="loader-text">nvn</h2>
         </div>
-    </div> -->
+    </div>
 
     <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
@@ -54,7 +53,7 @@
         <section id="home" class="hero-section">
             <div class="hero-bg-custom"></div>
             <video class="hero-video-overlay" autoplay loop muted playsinline>
-                <source src="frameFix.webm" type="video/webm">
+                <source src="media/frameFix.webm" type="video/webm">
                 Your browser does not support the video tag.
             </video>
 
@@ -99,7 +98,7 @@
                                 <div class="clip-hole"></div>
                             </div>
                             <div class="nametag-photo-container">
-                                <img src="assets/myPhoto.png" alt="Foto Profil Saya" class="profile-img">
+                                <img src="media/myPhoto.png" alt="Foto Profil Saya" class="profile-img">
                             </div>
                             <div class="nametag-info">
                                 <h3>Novan</h3>
@@ -121,7 +120,8 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="projects-section section-padding reveal">
+        <section id="projects" class="portfolio-section section-padding reveal">
+            <div class="portfolio-bg-custom"></div>
             <div class="container">
                 <div class="section-header">
                     <p class="section-subtitle">Portfolio</p>
@@ -176,7 +176,7 @@
                     <div class="project-card glass-card">
                         <div class="project-img-wrapper">
                             <div class="project-img-placeholder"
-                                style="background: linear-gradient(45deg, #11998e, #38ef7d);">
+                                style="background: #000312;">
                                 <i class="fa-brands fa-java"></i>
                             </div>
                             <div class="project-links-overlay">
@@ -203,6 +203,7 @@
 
         <!-- Contact Section -->
         <section id="contact" class="contact-section section-padding reveal">
+            <div class="about-bg-custom"></div>
             <div class="container">
                 <div class="contact-container glass-card">
                     <div class="contact-info">
@@ -253,19 +254,19 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">novan<span>.</span></div>
+            <div class="footer-logo">novan<span></span></div>
             <div class="footer-socials">
-                <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="https://github.com/Novan2" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
                 <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                 <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; <span id="currentYear"></span> nvn.</p>
+            <p>&copy; <span id="currentYear"></span> made by me ofc</p>
         </div>
     </footer>
 
-    <script src="assets/js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>
