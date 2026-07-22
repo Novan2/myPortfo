@@ -1241,6 +1241,10 @@ header.scrolled {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding-bottom: 5px; /* Mencegah shadow tombol terpotong */
 }
 
 .form-group {
@@ -1476,10 +1480,14 @@ footer {
     .custom-cursor,
     .custom-cursor-dot {
         display: none;
-        /* Hide custom cursor on mobile */
     }
 
     body {
         cursor: auto;
+    }
+
+    .cf-turnstile {
+        transform: scale(0.85);
+        transform-origin: left center;
     }
 }
