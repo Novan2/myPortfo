@@ -1242,9 +1242,6 @@ header.scrolled {
     flex-direction: column;
     gap: 20px;
     width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    padding-bottom: 5px; /* Mencegah shadow tombol terpotong */
 }
 
 .form-group {
@@ -1425,6 +1422,12 @@ footer {
 @media (max-width: 768px) {
     .hero-section {
         min-height: 50vh;
+    }
+
+    .contact-form {
+        max-width: 100%;
+        overflow-x: hidden;
+        padding-bottom: 5px;
     }
 
     .hamburger {
