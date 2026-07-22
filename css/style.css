@@ -447,6 +447,7 @@ header.scrolled {
     object-fit: contain;
     z-index: 1;
     pointer-events: none;
+    mix-blend-mode: screen; /* Jurus pamungkas menghilangkan background hitam video */
 }
 
 .hero-cta-wrapper {
