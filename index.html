@@ -13,9 +13,10 @@
         rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- GitHub Calendar CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css" />
+
     <link rel="stylesheet" href="css/style.css">
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="6d112cec-154b-417e-9641-b287f627c915"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
@@ -196,14 +197,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- GitHub Contributions Calendar -->
-                <div class="github-contributions" style="margin-top: 50px; margin-bottom: 30px; width: 100%;">
-                    <h3 style="text-align: center; margin-bottom: 20px;">My Contributions</h3>
-                    <div class="calendar glass-card" style="padding: 20px; border-radius: 15px; color: black; background-color: rgba(255, 255, 255, 0.9);">
-                        Loading GitHub Contributions...
-                    </div>
-                </div>
 
                 <div class="projects-cta text-center">
                     <a href="https://github.com/Novan2" target="_blank" class="btn btn-outline">View More Projects on
@@ -254,6 +247,10 @@
                             <textarea id="message" name="message" rows="4" required
                                 placeholder="Tell me about your project..."></textarea>
                         </div>
+                        
+                        <!-- Cloudflare Turnstile Widget -->
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAD7Nhtr_qPnQnHk1" style="margin-bottom: 20px;"></div>
+
                         <button type="submit" class="btn btn-primary btn-block">Send Message <i
                                 class="fa-solid fa-paper-plane"></i></button>
                         <div class="form-status" id="formStatus"></div>
@@ -268,8 +265,8 @@
             <div class="footer-logo">novan<span></span></div>
             <div class="footer-socials">
                 <a href="https://github.com/Novan2" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/novan-liem-36a60a321" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://wa.me/6287743360687" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -277,12 +274,8 @@
         </div>
     </footer>
 
-    <!-- GitHub Calendar Script -->
-    <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
-    <script>
-        // Init GitHub Calendar (using 'Novan2' as detected from your profile)
-        GitHubCalendar(".calendar", "Novan2", { responsive: true });
-    </script>
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/script.js"></script>
 </body>
 
