@@ -338,15 +338,15 @@ header.scrolled {
 .btn-primary {
     background: linear-gradient(135deg, #0055ff, #001188);
     color: #fff;
-    box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4); /* Glow cyan cerah */
-    border: 1px solid rgba(0, 198, 255, 0.3); /* Border tipis untuk efek highlight */
+    box-shadow: 0 4px 15px rgba(0, 85, 255, 0.4); /* Biru senada, bukan cyan */
+    border: 1px solid rgba(0, 85, 255, 0.3);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
     background: linear-gradient(135deg, #0066ff, #0022aa);
-    box-shadow: 0 6px 20px rgba(0, 198, 255, 0.6);
-    border-color: rgba(0, 198, 255, 0.8);
+    box-shadow: 0 6px 20px rgba(0, 85, 255, 0.6);
+    border-color: rgba(0, 85, 255, 0.8);
 }
 
 .btn-secondary {
@@ -1482,16 +1482,8 @@ footer {
         transform: translateY(0);
     }
 
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
+    .hamburger.active .bar {
+        background-color: var(--accent-primary);
     }
 
     .section-title {
