@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const hidePreloader = () => {
         if (preloader && !preloader.classList.contains('fade-out')) {
-            // Mengembalikan delay 1 detik seperti permintaan Anda
+            // Mengembalikan delay 1 detik
             setTimeout(() => {
                 preloader.classList.add('fade-out');
                 setTimeout(() => {
