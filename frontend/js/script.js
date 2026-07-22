@@ -9,20 +9,40 @@ window.scrollTo(0, 0);
 /* ==========================================================================
    Preloader Logic
    ========================================================================== */
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const preloader = document.getElementById('preloader');
-    if (preloader) {
-        // Tambahkan delay sedikit (misal 1 detik) agar efeknya terlihat jelas
-        setTimeout(() => {
-            preloader.classList.add('fade-out');
-            
-            // Trigger load animations
+    const heroVideo = document.querySelector('.hero-video-overlay');
+
+    const hidePreloader = () => {
+        if (preloader && !preloader.classList.contains('fade-out')) {
+            // Mengembalikan delay 1 detik seperti permintaan Anda
             setTimeout(() => {
-                document.querySelectorAll('.load-anim-top, .load-anim-bottom').forEach(el => {
-                    el.classList.add('loaded');
-                });
-            }, 300); // Slight delay after preloader starts fading
-        }, 1000);
+                preloader.classList.add('fade-out');
+                setTimeout(() => {
+                    document.querySelectorAll('.load-anim-top, .load-anim-bottom').forEach(el => {
+                        el.classList.add('loaded');
+                    });
+                }, 300);
+            }, 1000);
+        }
+    };
+
+    if (preloader) {
+        if (heroVideo) {
+            // Cek apakah video sudah ter-cache dan siap diputar
+            if (heroVideo.readyState >= 3) {
+                hidePreloader();
+            } else {
+                // Jika belum, tunggu sampai video berhasil dimuat (tanpa menunggu aplikasi pihak ketiga)
+                heroVideo.addEventListener('canplaythrough', hidePreloader);
+                heroVideo.addEventListener('error', hidePreloader); // Fallback jika video gagal
+                
+                // Fallback maksimal 5 detik agar tidak stuck selamanya jika koneksi lambat
+                setTimeout(hidePreloader, 5000);
+            }
+        } else {
+            hidePreloader();
+        }
     } else {
         document.querySelectorAll('.load-anim-top, .load-anim-bottom').forEach(el => {
             el.classList.add('loaded');
@@ -356,13 +376,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (nametagGlare) {
                 nametagGlare.style.background = `radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 60%)`;
             }
-            
+
             // Revert back to fast transition for mousemove tracking
             setTimeout(() => {
                 nametagCard.style.transition = 'transform 0.1s ease-out';
             }, 500);
         });
-        
+
         perspectiveContainer.addEventListener('mouseenter', () => {
             nametagCard.style.transition = 'transform 0.1s ease-out';
         });
