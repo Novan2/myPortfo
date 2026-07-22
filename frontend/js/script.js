@@ -214,6 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
+            // Ambil token Turnstile
+            const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+            if (!turnstileToken) {
+                formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-triangle-exclamation"></i> Harap selesaikan verifikasi keamanan.</span>';
+                return;
+            }
+
             // Get button to show loading state
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
@@ -221,26 +228,31 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
 
-            // Send request to backend
-            fetch('http://localhost:3000/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, email, message })
+            // Initialize Supabase client
+            const supabaseUrl = 'https://jfftdpzvhvvmmtnbkzqk.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmZnRkcHp2aHZ2bW10bmJrenFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MDY2NTQsImV4cCI6MjEwMDI4MjY1NH0.pUiFjc-pf-PKeQClfBOXmbkdRtE3UJ1ZGE-ByB7dN6A';
+            const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+            // Send request to Supabase Edge Function
+            supabase.functions.invoke('verify-captcha', {
+                body: { name, email, message, turnstileToken }
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Message sent successfully! I will contact you soon.</span>';
-                        contactForm.reset();
+                .then(({ data, error }) => {
+                    if (error) {
+                        console.error('Supabase Edge Function error:', error);
+                        formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal mengirim pesan: ' + error.message + '</span>';
                     } else {
-                        formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> An error occurred: ' + (data.error || 'Failed to save message') + '</span>';
+                        formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Pesan berhasil terkirim! Saya akan segera menghubungi Anda.</span>';
+                        contactForm.reset();
+                        // Reset turnstile widget for next submission
+                        if (window.turnstile) {
+                            window.turnstile.reset();
+                        }
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Failed to contact server. Ensure backend is running.</span>';
+                    console.error('Network Error:', error);
+                    formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal terhubung ke server. Silakan coba lagi.</span>';
                 })
                 .finally(() => {
                     submitBtn.innerHTML = originalText;
