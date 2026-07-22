@@ -336,14 +336,15 @@ header.scrolled {
 }
 
 .btn-primary {
-    background: var(--accent-gradient);
+    background: linear-gradient(135deg, #0088ff, #0055ff);
     color: #fff;
-    box-shadow: 0 4px 15px rgba(0, 198, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 85, 255, 0.3);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
+    background: linear-gradient(135deg, #0077ee, #0044dd);
+    box-shadow: 0 6px 20px rgba(0, 85, 255, 0.5);
 }
 
 .btn-secondary {
@@ -1426,7 +1427,7 @@ footer {
 
     .contact-form {
         max-width: 100%;
-        overflow-x: hidden;
+        /* overflow-x: hidden; */
         padding-bottom: 5px;
     }
 
