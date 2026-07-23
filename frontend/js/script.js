@@ -90,7 +90,7 @@ function initCustomCursor() {
     const customCursorDot = document.querySelector('.custom-cursor-dot');
     const playfulLetters = document.querySelectorAll('.portfolio-playful .letter');
     const interactives = document.querySelectorAll('a, button, input, textarea, .glass-card');
-    
+
     // Check if device supports hover (ignore touch devices)
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
@@ -134,12 +134,37 @@ function initNavigation() {
     const navItems = document.querySelectorAll('.nav-item');
     const sections = document.querySelectorAll('section');
 
-    // Header Background on Scroll
+    let isScrolling = false;
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+        if (!isScrolling) {
+            window.requestAnimationFrame(() => {
+                // Header Background
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+
+                // Active Link Highlighting
+                let current = '';
+                const headerHeight = header.offsetHeight;
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.pageYOffset >= (sectionTop - headerHeight - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === `#${current}`) {
+                        item.classList.add('active');
+                    }
+                });
+
+                isScrolling = false;
+            });
+            isScrolling = true;
         }
     });
 
@@ -164,31 +189,12 @@ function initNavigation() {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 const headerHeight = document.querySelector('header').offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
                 window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-            }
-        });
-    });
-
-    // Active Link Highlighting on Scroll
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const headerHeight = document.querySelector('header').offsetHeight;
-            if (pageYOffset >= (sectionTop - headerHeight - 100)) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navItems.forEach(item => {
-            item.classList.remove('active');
-            if (item.getAttribute('href') === `#${current}`) {
-                item.classList.add('active');
             }
         });
     });
@@ -248,10 +254,10 @@ function initTypingEffect() {
             roleIndex = (roleIndex + 1) % roles.length;
             typeSpeed = 500; // Pause before typing next word
         }
-        
+
         setTimeout(type, typeSpeed);
     }
-    
+
     setTimeout(type, 1000);
 }
 
@@ -282,7 +288,7 @@ function init3DNametag() {
 
         // Apply 3D tilt effect
         nametagCard.style.transition = 'transform 0.1s ease-out';
-        const tiltX = ((y - centerY) / centerY) * -15; 
+        const tiltX = ((y - centerY) / centerY) * -15;
         const tiltY = ((x - centerX) / centerX) * 15;
         nametagCard.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
 
@@ -298,7 +304,7 @@ function init3DNametag() {
         nametagCard.style.transition = 'transform 0.5s ease-out';
         nametagCard.style.transform = `rotateX(0deg) rotateY(0deg)`;
         if (nametagGlare) nametagGlare.style.background = `radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 60%)`;
-        
+
         setTimeout(() => { nametagCard.style.transition = 'transform 0.1s ease-out'; }, 500);
     });
 
@@ -317,11 +323,11 @@ function initContactForm() {
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
-            
+
             const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
 
             if (!turnstileToken) {
@@ -331,7 +337,7 @@ function initContactForm() {
 
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
-            
+
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
 
@@ -342,25 +348,25 @@ function initContactForm() {
             supabase.functions.invoke('verify-captcha', {
                 body: { name, email, message, turnstileToken }
             })
-            .then(({ data, error }) => {
-                if (error) {
-                    console.error('Supabase Edge Function error:', error);
-                    formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal mengirim pesan: ' + error.message + '</span>';
-                } else {
-                    formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Pesan berhasil terkirim! Saya akan segera menghubungi Anda.</span>';
-                    contactForm.reset();
-                    if (window.turnstile) window.turnstile.reset();
-                }
-            })
-            .catch(error => {
-                console.error('Network Error:', error);
-                formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal terhubung ke server. Silakan coba lagi.</span>';
-            })
-            .finally(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                setTimeout(() => { formStatus.innerHTML = ''; }, 5000);
-            });
+                .then(({ data, error }) => {
+                    if (error) {
+                        console.error('Supabase Edge Function error:', error);
+                        formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal mengirim pesan: ' + error.message + '</span>';
+                    } else {
+                        formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Pesan berhasil terkirim! Saya akan segera menghubungi Anda.</span>';
+                        contactForm.reset();
+                        if (window.turnstile) window.turnstile.reset();
+                    }
+                })
+                .catch(error => {
+                    console.error('Network Error:', error);
+                    formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal terhubung ke server. Silakan coba lagi.</span>';
+                })
+                .finally(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    setTimeout(() => { formStatus.innerHTML = ''; }, 5000);
+                });
         });
     }
 }
