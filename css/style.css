@@ -236,18 +236,30 @@ ul {
 header {
     position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     width: 100%;
+    max-width: 100%;
     z-index: 1000;
     padding: 20px 5%;
-    transition: background-color var(--transition-medium), padding var(--transition-medium);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 0;
+    transition: all var(--transition-medium);
 }
 
 header.scrolled {
-    padding: 15px 5%;
-    background: rgba(5, 5, 5, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--glass-border);
+    top: 15px;
+    width: calc(100% - 40px);
+    max-width: 1160px;
+    padding: 15px 30px;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
 }
 
 .navbar {
