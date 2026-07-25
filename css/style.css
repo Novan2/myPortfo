@@ -433,6 +433,10 @@ header.scrolled {
     animation-delay: -4s;
 }
 
+.hero-mobile-glow {
+    display: none;
+}
+
 @keyframes pulseGlow {
     0% {
         transform: scale(1) translate(0, 0);
@@ -445,6 +449,15 @@ header.scrolled {
     }
 }
 
+.hero-center-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
 .hero-video-overlay {
     position: absolute;
     top: 0;
@@ -455,9 +468,16 @@ header.scrolled {
     z-index: 1;
     pointer-events: none;
     mix-blend-mode: screen;
-    /* Force Hardware Acceleration for smoother blending */
     transform: translateZ(0);
     will-change: transform, opacity;
+}
+
+.video-desktop {
+    display: block;
+}
+
+.video-mobile {
+    display: none;
 }
 
 .hero-cta-wrapper {
@@ -468,7 +488,9 @@ header.scrolled {
     z-index: 2;
     text-align: center;
     display: flex;
+    justify-content: center;
     gap: 20px;
+    width: 100%;
 }
 
 .btn-glass {
@@ -1452,8 +1474,53 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .video-desktop {
+        display: none;
+    }
+
+    .video-mobile {
+        display: block;
+        object-fit: contain;
+    }
+
+    .hero-mobile-glow {
+        display: block;
+        position: absolute;
+        width: 80vw;
+        height: 80vw;
+        top: calc(50% - 40vw);
+        left: calc(50% - 40vw);
+        background: radial-gradient(circle, rgba(0, 198, 255, 0.25), transparent 70%);
+        border-radius: 50%;
+        animation: pulseGlow 6s infinite alternate ease-in-out;
+        pointer-events: none;
+    }
+
+    .hero-center-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 5%;
+    }
+
+    .hero-video-overlay.video-mobile {
+        position: relative;
+        height: auto;
+        margin-bottom: 30px;
+        max-width: 900px;
+    }
+
+    .hero-cta-wrapper {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+    }
+
     .hero-section {
-        min-height: 50vh;
+        min-height: 100vh;
     }
 
     .contact-form {
@@ -1516,5 +1583,40 @@ footer {
     .cf-turnstile {
         transform: scale(0.85);
         transform-origin: left center;
+    }
+
+    /* Fix background orbs on mobile */
+    .about-bg-custom::before,
+    .about-bg-custom::after,
+    .about-bg-custom .orb-3,
+    .portfolio-bg-custom::before,
+    .portfolio-bg-custom::after {
+        width: 120vw;
+        height: 120vw;
+    }
+
+    .about-bg-custom::before {
+        top: 2%;
+        right: -40%;
+    }
+
+    .about-bg-custom::after {
+        bottom: 2%;
+        left: -40%;
+    }
+
+    .about-bg-custom .orb-3 {
+        top: 50%;
+        right: -30%;
+    }
+
+    .portfolio-bg-custom::before {
+        top: 5%;
+        left: -40%;
+    }
+
+    .portfolio-bg-custom::after {
+        bottom: 5%;
+        right: -40%;
     }
 }
