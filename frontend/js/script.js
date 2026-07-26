@@ -26,23 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
  * 2.1 Force Scroll to Top on Refresh
  */
 function initScrollRestoration() {
-    if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-    }
+    // Scroll restoration utamanya sudah dipindah ke inline script di <head> index.html
+    // agar dieksekusi sebelum halaman di-render (mencegah flash scroll lama).
     
-    // Pastikan scroll langsung ke atas tanpa animasi (karena ada CSS scroll-behavior: smooth)
-    const scrollToTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    
-    scrollToTop();
-    
-    // Beberapa browser mobile (seperti iOS Safari) me-restore scroll setelah load
-    window.addEventListener('load', () => {
-        setTimeout(scrollToTop, 10);
-    });
-
-    // Reset posisi ke atas sesaat sebelum refresh/pindah halaman agar posisi yang tersimpan adalah 0
+    // Fallback tambahan untuk browser mobile (iOS)
     window.addEventListener('beforeunload', () => {
-        scrollToTop();
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     });
 }
 
