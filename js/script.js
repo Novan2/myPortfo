@@ -29,7 +29,21 @@ function initScrollRestoration() {
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
-    window.scrollTo(0, 0);
+    
+    // Pastikan scroll langsung ke atas tanpa animasi (karena ada CSS scroll-behavior: smooth)
+    const scrollToTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    
+    scrollToTop();
+    
+    // Beberapa browser mobile (seperti iOS Safari) me-restore scroll setelah load
+    window.addEventListener('load', () => {
+        setTimeout(scrollToTop, 10);
+    });
+
+    // Reset posisi ke atas sesaat sebelum refresh/pindah halaman agar posisi yang tersimpan adalah 0
+    window.addEventListener('beforeunload', () => {
+        scrollToTop();
+    });
 }
 
 /**
