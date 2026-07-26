@@ -26,13 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * 2.1 Force Scroll to Top on Refresh
  */
 function initScrollRestoration() {
-    // Scroll restoration utamanya sudah dipindah ke inline script di <head> index.html
-    // agar dieksekusi sebelum halaman di-render (mencegah flash scroll lama).
-    
-    // Fallback tambahan untuk browser mobile (iOS)
-    window.addEventListener('beforeunload', () => {
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    });
+    // --
 }
 
 /**
