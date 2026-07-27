@@ -178,8 +178,9 @@ ul {
 }
 
 .preloader-diamond {
-    font-size: 3rem;
-    color: var(--text-primary);
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--text-primary);
     animation: diamond-drop 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
