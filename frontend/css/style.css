@@ -183,6 +183,7 @@ ul {
     background-color: var(--text-primary);
     border-radius: 8px;
     animation: diamond-drop 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    will-change: transform, opacity;
 }
 
 @keyframes diamond-drop {

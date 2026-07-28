@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * 2.1 Force Scroll to Top on Refresh
  */
 function initScrollRestoration() {
-    // --
+    // -- no need yet
 }
 
 /**
