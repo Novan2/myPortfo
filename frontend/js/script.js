@@ -49,6 +49,9 @@ function initPreloader() {
         if (preloader && !preloader.classList.contains('fade-out')) {
             setTimeout(() => {
                 preloader.classList.add('fade-out');
+                // After slide-up animation (800ms) is done, load Turnstile
+                // during the next browser idle window so it won't jank anything
+                setTimeout(() => loadTurnstile(), 800);
                 setTimeout(() => {
                     document.querySelectorAll('.load-anim-top, .load-anim-bottom').forEach(el => {
                         el.classList.add('loaded');
@@ -366,44 +369,46 @@ function initContactForm() {
 
 /**
  * 2.10 Lazy-load Cloudflare Turnstile
- * Only injects the Turnstile script when the #contact section enters the viewport.
- * This prevents the heavy script from running during the preloader animation.
+ * Called by initPreloader() after the preloader slide-up animation finishes.
+ * Uses requestIdleCallback (with setTimeout fallback for Safari) to inject
+ * the Turnstile script only when the browser's main thread is genuinely idle.
  */
-function initTurnstile() {
-    const contactSection = document.getElementById('contact');
-    if (!contactSection) return;
+let _turnstileLoaded = false;
 
-    let loaded = false;
+function loadTurnstile() {
+    if (_turnstileLoaded) return;
+    _turnstileLoaded = true;
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !loaded) {
-                loaded = true;
-                observer.disconnect();
-
-                const script = document.createElement('script');
-                script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-                script.async = true;
-                script.defer = true;
-                // After script loads, explicitly render the widget
-                script.onload = () => {
-                    if (window.turnstile) {
-                        document.querySelectorAll('.cf-turnstile').forEach(el => {
-                            // Only render if not already rendered
-                            if (!el.querySelector('iframe')) {
-                                window.turnstile.render(el, {
-                                    sitekey: el.dataset.sitekey,
-                                    theme: el.dataset.theme || 'dark',
-                                    size: el.dataset.size || 'flexible',
-                                });
-                            }
+    const inject = () => {
+        const script = document.createElement('script');
+        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+        script.async = true;
+        // After script loads, explicitly render the widget using data-* attributes
+        script.onload = () => {
+            if (window.turnstile) {
+                document.querySelectorAll('.cf-turnstile').forEach(el => {
+                    if (!el.querySelector('iframe')) {
+                        window.turnstile.render(el, {
+                            sitekey: el.dataset.sitekey,
+                            theme: el.dataset.theme || 'dark',
+                            size: el.dataset.size || 'flexible',
                         });
                     }
-                };
-                document.head.appendChild(script);
+                });
             }
-        });
-    }, { rootMargin: '200px' }); // Start loading 200px before section enters view
+        };
+        document.head.appendChild(script);
+    };
 
-    observer.observe(contactSection);
+    // requestIdleCallback: let the browser decide when it's idle enough
+    // Fallback to setTimeout for Safari which doesn't support requestIdleCallback
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(inject, { timeout: 3000 });
+    } else {
+        setTimeout(inject, 1500); // Safari fallback
+    }
 }
+
+// initTurnstile is kept as a no-op registration hook (called from DOMContentLoaded)
+// Actual loading is triggered by initPreloader() after animation completes
+function initTurnstile() {}
