@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initTypingEffect();
     init3DNametag();
     initContactForm();
+    initTurnstile(); // Lazy-load Turnstile only when #contact is visible
 });
 
 // ==========================================================================
@@ -361,4 +362,48 @@ function initContactForm() {
                 });
         });
     }
+}
+
+/**
+ * 2.10 Lazy-load Cloudflare Turnstile
+ * Only injects the Turnstile script when the #contact section enters the viewport.
+ * This prevents the heavy script from running during the preloader animation.
+ */
+function initTurnstile() {
+    const contactSection = document.getElementById('contact');
+    if (!contactSection) return;
+
+    let loaded = false;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !loaded) {
+                loaded = true;
+                observer.disconnect();
+
+                const script = document.createElement('script');
+                script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+                script.async = true;
+                script.defer = true;
+                // After script loads, explicitly render the widget
+                script.onload = () => {
+                    if (window.turnstile) {
+                        document.querySelectorAll('.cf-turnstile').forEach(el => {
+                            // Only render if not already rendered
+                            if (!el.querySelector('iframe')) {
+                                window.turnstile.render(el, {
+                                    sitekey: el.dataset.sitekey,
+                                    theme: el.dataset.theme || 'dark',
+                                    size: el.dataset.size || 'flexible',
+                                });
+                            }
+                        });
+                    }
+                };
+                document.head.appendChild(script);
+            }
+        });
+    }, { rootMargin: '200px' }); // Start loading 200px before section enters view
+
+    observer.observe(contactSection);
 }
