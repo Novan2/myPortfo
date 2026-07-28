@@ -163,6 +163,7 @@ ul {
     z-index: 99999;
     /* Transition for slide up */
     transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), visibility 0.8s;
+    will-change: transform;
 }
 
 #preloader.fade-out {
@@ -216,6 +217,7 @@ ul {
     font-weight: 800;
     letter-spacing: 2px;
     animation: pulse 1.5s infinite alternate;
+    will-change: transform, opacity;
 }
 
 .loader-text span {

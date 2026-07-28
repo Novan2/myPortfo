@@ -34,7 +34,15 @@ function initScrollRestoration() {
  */
 function initPreloader() {
     const preloader = document.getElementById('preloader');
-    const heroVideo = document.querySelector('.hero-video-overlay');
+
+    // Pick the hero video that is actually visible (desktop vs mobile)
+    const allHeroVideos = document.querySelectorAll('.hero-video-overlay');
+    let heroVideo = null;
+    allHeroVideos.forEach(v => {
+        if (getComputedStyle(v).display !== 'none') {
+            heroVideo = v;
+        }
+    });
 
     const hidePreloader = () => {
         if (preloader && !preloader.classList.contains('fade-out')) {
