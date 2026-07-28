@@ -13,38 +13,26 @@ serve(async (req) => {
   }
 
   try {
-    const { name, email, message, turnstileToken } = await req.json()
+    const { name, email, message } = await req.json()
 
-    // 1. Verify Turnstile Token
-    const secretKey = Deno.env.get('TURNSTILE_SECRET_KEY')
-    if (!secretKey) {
-      throw new Error('Server configuration error: missing Turnstile secret key')
-    }
-
-    const formData = new URLSearchParams();
-    formData.append('secret', secretKey);
-    formData.append('response', turnstileToken);
-
-    const verificationResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-
-    const verificationResult = await verificationResponse.json();
-
-    if (!verificationResult.success) {
-      console.error('Turnstile verification failed:', verificationResult);
+    // 1. Validate required fields
+    if (!name || !email || !message) {
       return new Response(
-        JSON.stringify({ error: 'CAPTCHA verification failed. Please try again.' }),
+        JSON.stringify({ error: 'Missing required fields.' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
 
-    // 2. Insert into Supabase
-    // We use the service_role key to bypass RLS since we verified the CAPTCHA
+    // 2. Basic email format check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid email address.' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    // 3. Insert into Supabase
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
@@ -58,7 +46,7 @@ serve(async (req) => {
 
     if (insertError) throw insertError
 
-    // 3. Return Success
+    // 4. Return Success
     return new Response(
       JSON.stringify({ success: true, message: 'Message sent successfully!' }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }

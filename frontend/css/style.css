@@ -1625,3 +1625,19 @@ footer {
         right: -40%;
     }
 }
+
+/* ==========================================================================
+   Honeypot (Anti-spam)
+   ========================================================================== */
+/* Hidden from real users but visible to bots in the DOM */
+.hp-field {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+    tab-size: 0;
+}

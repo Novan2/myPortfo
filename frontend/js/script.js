@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initTypingEffect();
     init3DNametag();
     initContactForm();
-    initTurnstile(); // Lazy-load Turnstile only when #contact is visible
 });
 
 // ==========================================================================
@@ -49,9 +48,6 @@ function initPreloader() {
         if (preloader && !preloader.classList.contains('fade-out')) {
             setTimeout(() => {
                 preloader.classList.add('fade-out');
-                // After slide-up animation (800ms) is done, load Turnstile
-                // during the next browser idle window so it won't jank anything
-                setTimeout(() => loadTurnstile(), 800);
                 setTimeout(() => {
                     document.querySelectorAll('.load-anim-top, .load-anim-bottom').forEach(el => {
                         el.classList.add('loaded');
@@ -310,11 +306,15 @@ function init3DNametag() {
 }
 
 /**
- * 2.9 Contact Form API Integration & CAPTCHA
+ * 2.9 Contact Form API Integration with Honeypot Anti-spam
  */
 function initContactForm() {
     const contactForm = document.getElementById('contactForm');
     const formStatus = document.getElementById('formStatus');
+
+    // Record when the form was loaded for timing check
+    const formLoadTimeField = document.getElementById('form_load_time');
+    if (formLoadTimeField) formLoadTimeField.value = Date.now();
 
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
@@ -324,12 +324,14 @@ function initContactForm() {
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
-            const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+            // Honeypot check: real users never fill this field
+            const honeypot = document.getElementById('website')?.value;
+            if (honeypot) return; // silently reject bots
 
-            if (!turnstileToken) {
-                formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-triangle-exclamation"></i> Harap selesaikan verifikasi keamanan.</span>';
-                return;
-            }
+            // Timing check: block if form submitted too fast (< 2 seconds)
+            const loadTime = parseInt(formLoadTimeField?.value || '0');
+            const elapsed = Date.now() - loadTime;
+            if (loadTime && elapsed < 2000) return; // silently reject bots
 
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
@@ -342,7 +344,7 @@ function initContactForm() {
             const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
             supabase.functions.invoke('verify-captcha', {
-                body: { name, email, message, turnstileToken }
+                body: { name, email, message }
             })
                 .then(({ data, error }) => {
                     if (error) {
@@ -351,7 +353,7 @@ function initContactForm() {
                     } else {
                         formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Pesan berhasil terkirim! Saya akan segera menghubungi Anda.</span>';
                         contactForm.reset();
-                        if (window.turnstile) window.turnstile.reset();
+                        if (formLoadTimeField) formLoadTimeField.value = Date.now(); // reset timer
                     }
                 })
                 .catch(error => {
@@ -367,48 +369,3 @@ function initContactForm() {
     }
 }
 
-/**
- * 2.10 Lazy-load Cloudflare Turnstile
- * Called by initPreloader() after the preloader slide-up animation finishes.
- * Uses requestIdleCallback (with setTimeout fallback for Safari) to inject
- * the Turnstile script only when the browser's main thread is genuinely idle.
- */
-let _turnstileLoaded = false;
-
-function loadTurnstile() {
-    if (_turnstileLoaded) return;
-    _turnstileLoaded = true;
-
-    const inject = () => {
-        const script = document.createElement('script');
-        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-        script.async = true;
-        // After script loads, explicitly render the widget using data-* attributes
-        script.onload = () => {
-            if (window.turnstile) {
-                document.querySelectorAll('.cf-turnstile').forEach(el => {
-                    if (!el.querySelector('iframe')) {
-                        window.turnstile.render(el, {
-                            sitekey: el.dataset.sitekey,
-                            theme: el.dataset.theme || 'dark',
-                            size: el.dataset.size || 'flexible',
-                        });
-                    }
-                });
-            }
-        };
-        document.head.appendChild(script);
-    };
-
-    // requestIdleCallback: let the browser decide when it's idle enough
-    // Fallback to setTimeout for Safari which doesn't support requestIdleCallback
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(inject, { timeout: 3000 });
-    } else {
-        setTimeout(inject, 1500); // Safari fallback
-    }
-}
-
-// initTurnstile is kept as a no-op registration hook (called from DOMContentLoaded)
-// Actual loading is triggered by initPreloader() after animation completes
-function initTurnstile() {}

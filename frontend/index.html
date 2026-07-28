@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script defer src="https://cloud.umami.is/script.js"
         data-website-id="6d112cec-154b-417e-9641-b287f627c915"></script>
-    <!-- Turnstile is loaded lazily via JS when #contact section is visible -->
+
 </head>
 
 <body>
@@ -265,10 +265,13 @@
                                 placeholder="Tell me about your project..."></textarea>
                         </div>
 
-                        <!-- Cloudflare Turnstile Widget -->
-                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAD7Nhtr_qPnQnHk1" data-theme="dark"
-                            data-size="flexible" style="margin-bottom: 8px; filter: brightness(0.60) contrast(1);">
+                        <!-- Honeypot: hidden from real users, bots will fill this -->
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="website">Website</label>
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                         </div>
+                        <!-- Tracks how fast the form was filled (too fast = bot) -->
+                        <input type="hidden" id="form_load_time" name="form_load_time">
 
                         <button type="submit" class="btn btn-primary btn-block">Send Message <i
                                 class="fa-solid fa-paper-plane"></i></button>
