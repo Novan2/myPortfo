@@ -343,12 +343,12 @@ function initContactForm() {
             const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmZnRkcHp2aHZ2bW10bmJrenFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MDY2NTQsImV4cCI6MjEwMDI4MjY1NH0.pUiFjc-pf-PKeQClfBOXmbkdRtE3UJ1ZGE-ByB7dN6A';
             const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-            supabase.functions.invoke('verify-captcha', {
-                body: { name, email, message }
-            })
-                .then(({ data, error }) => {
+            supabase.from('contact_messages').insert([
+                { name, email, message }
+            ])
+                .then(({ error }) => {
                     if (error) {
-                        console.error('Supabase Edge Function error:', error);
+                        console.error('Supabase insert error:', error);
                         formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal mengirim pesan: ' + error.message + '</span>';
                     } else {
                         formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Pesan berhasil terkirim! Saya akan segera menghubungi Anda.</span>';
