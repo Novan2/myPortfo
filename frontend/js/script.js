@@ -23,6 +23,28 @@ document.addEventListener('DOMContentLoaded', () => {
 // 2. Feature Implementations
 // ==========================================================================
 
+let lenisInstance = null;
+
+/**
+ * 2.0 Lenis Inertia Smooth Scroll
+ */
+function initLenisSmoothScroll() {
+    if (typeof Lenis !== 'undefined') {
+        lenisInstance = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            touchMultiplier: 1.5,
+        });
+
+        function raf(time) {
+            lenisInstance.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    }
+}
+
 /**
  * 2.1 Force Scroll to Top on Refresh
  */
@@ -35,8 +57,21 @@ function initScrollRestoration() {
  */
 function initPreloader() {
     const preloader = document.getElementById('preloader');
+    if (!preloader) return;
 
-    // Pick the hero video that is actually visible (desktop vs mobile)
+    let isDismissed = false;
+    const dismissPreloader = () => {
+        if (isDismissed) return;
+        isDismissed = true;
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+            document.querySelectorAll('.load-anim-top, .load-anim-bottom').forEach(el => {
+                el.classList.add('loaded');
+            });
+        }, 250);
+    };
+
+    // Check if hero video is present
     const allHeroVideos = document.querySelectorAll('.hero-video-overlay');
     let heroVideo = null;
     allHeroVideos.forEach(v => {
@@ -45,37 +80,19 @@ function initPreloader() {
         }
     });
 
-    const hidePreloader = () => {
-        if (preloader && !preloader.classList.contains('fade-out')) {
-            setTimeout(() => {
-                preloader.classList.add('fade-out');
-                setTimeout(() => {
-                    document.querySelectorAll('.load-anim-top, .load-anim-bottom').forEach(el => {
-                        el.classList.add('loaded');
-                    });
-                }, 300);
-            }, 1000);
-        }
-    };
-
-    if (preloader) {
-        if (heroVideo) {
-            // Check if video is already cached and ready
-            if (heroVideo.readyState >= 3) {
-                hidePreloader();
-            } else {
-                heroVideo.addEventListener('canplaythrough', hidePreloader);
-                heroVideo.addEventListener('error', hidePreloader);
-                setTimeout(hidePreloader, 5000); // 5s fallback for slow internet
-            }
-        } else {
-            hidePreloader();
-        }
+    if (heroVideo && heroVideo.readyState >= 2) {
+        setTimeout(dismissPreloader, 350);
+    } else if (heroVideo) {
+        heroVideo.addEventListener('loadeddata', () => setTimeout(dismissPreloader, 300), { once: true });
+        heroVideo.addEventListener('error', dismissPreloader, { once: true });
+        // Max 800ms fallback so visitor is never stuck!
+        setTimeout(dismissPreloader, 800);
     } else {
-        document.querySelectorAll('.load-anim-top, .load-anim-bottom').forEach(el => {
-            el.classList.add('loaded');
-        });
+        setTimeout(dismissPreloader, 400);
     }
+
+    // Unconditional safety net: dismiss after 1000ms maximum
+    setTimeout(dismissPreloader, 1000);
 }
 
 /**
@@ -188,28 +205,6 @@ function initNavigation() {
             });
         });
     }
-
-let lenisInstance = null;
-
-/**
- * 2.0 Lenis Inertia Smooth Scroll
- */
-function initLenisSmoothScroll() {
-    if (typeof Lenis !== 'undefined') {
-        lenisInstance = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-            touchMultiplier: 1.5,
-        });
-
-        function raf(time) {
-            lenisInstance.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-    }
-}
 
     // Enhanced smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
