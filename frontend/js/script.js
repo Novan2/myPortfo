@@ -349,16 +349,16 @@ function initContactForm() {
                 .then(({ error }) => {
                     if (error) {
                         console.error('Supabase insert error:', error);
-                        formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal mengirim pesan: ' + error.message + '</span>';
+                        formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Failed to send message: ' + error.message + '</span>';
                     } else {
-                        formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Pesan berhasil terkirim! Saya akan segera menghubungi Anda.</span>';
+                        formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Message sent successfully! I\'ll get back to you shortly.</span>';
                         contactForm.reset();
                         if (formLoadTimeField) formLoadTimeField.value = Date.now(); // reset timer
                     }
                 })
                 .catch(error => {
                     console.error('Network Error:', error);
-                    formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal terhubung ke server. Silakan coba lagi.</span>';
+                    formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Unable to connect to the server. Please try again later.</span>';
                 })
                 .finally(() => {
                     submitBtn.innerHTML = originalText;
