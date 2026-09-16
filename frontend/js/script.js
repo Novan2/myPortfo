@@ -74,20 +74,18 @@ function initPreloader() {
         }, 300);
     };
 
-    const triggerDismiss = () => {
-        const elapsed = Date.now() - startTime;
-        const remaining = Math.max(0, minDisplayDuration - elapsed);
-        setTimeout(dismissPreloader, remaining);
-    };
+    // Dismiss smoothly at exactly 1.2s without waiting for offscreen media or network queues
+    setTimeout(() => {
+        dismissPreloader();
 
-    // Trigger after window is loaded or fallback, ensuring at least 1.5s
-    if (document.readyState === 'complete') {
-        triggerDismiss();
-    } else {
-        window.addEventListener('load', triggerDismiss, { once: true });
-        // Safety net fallback in case an external asset hangs
-        setTimeout(triggerDismiss, 2500);
-    }
+        // Responsive video playback: play only the video for the current screen size
+        if (window.innerWidth <= 768) {
+            const mobileVid = document.querySelector('.video-mobile');
+            const desktopVid = document.querySelector('.video-desktop');
+            if (desktopVid) desktopVid.pause();
+            if (mobileVid) mobileVid.play().catch(() => {});
+        }
+    }, minDisplayDuration);
 }
 
 /**
