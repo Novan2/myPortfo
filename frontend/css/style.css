@@ -1440,10 +1440,6 @@ footer {
     border-top: 1px solid var(--glass-border);
 }
 
-.footer-bottom i {
-    font-size: 0.8rem;
-}
-
 /* Featured project card */
 .project-featured {
     border: 1px solid rgba(0, 198, 255, 0.15);
