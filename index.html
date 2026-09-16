@@ -6,16 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novan Liem | Web Developer and UI/UX Designer</title>
     <link rel="icon" href="media/personal-logo.png" type="image/png">
-    <!-- Google Fonts -->
+    <!-- Resource Hints for faster CDN and Font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@700;800;900&family=Fira+Code:wght@400;500;600&display=swap"
         rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="css/style.css?v=8">
+    <link rel="stylesheet" href="css/style.css?v=9">
     <script defer src="https://cloud.umami.is/script.js"
         data-website-id="6d112cec-154b-417e-9641-b287f627c915"></script>
 
@@ -60,14 +62,14 @@
                 <div class="hero-mobile-glow"></div>
             </div>
             <div class="hero-center-wrapper">
-                <video class="hero-video-overlay video-desktop" autoplay loop muted playsinline>
-                    <source src="media/hero-section-web.mov" type='video/quicktime; codecs="hvc1"'>
+                <video class="hero-video-overlay video-desktop" autoplay loop muted playsinline preload="auto">
                     <source src="media/hero-section-web.webm" type="video/webm">
+                    <source src="media/hero-section-web.mov" type='video/quicktime; codecs="hvc1"'>
                     Your browser does not support the video tag.
                 </video>
-                <video class="hero-video-overlay video-mobile" autoplay loop muted playsinline>
-                    <source src="media/hero-section-mobile.mov" type='video/quicktime; codecs="hvc1"'>
+                <video class="hero-video-overlay video-mobile" loop muted playsinline preload="none">
                     <source src="media/hero-section-mobile.webm" type="video/webm">
+                    <source src="media/hero-section-mobile.mov" type='video/quicktime; codecs="hvc1"'>
                     Your browser does not support the video tag.
                 </video>
 
@@ -147,7 +149,7 @@
                     <!-- Project: Himaprodi TI Website -->
                     <div class="project-card glass-card project-featured">
                         <div class="project-img-wrapper">
-                            <img src="media/projects/himaprodi.png" alt="Himaprodi TI Website Preview" class="project-img" loading="lazy">
+                            <img src="media/projects/himaprodi.webp" alt="Himaprodi TI Website Preview" class="project-img" loading="lazy">
                             <div class="project-links-overlay">
                                 <a href="https://himaproditi-stikom.org" target="_blank" class="project-link"
                                     aria-label="Kunjungi Website"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
@@ -170,7 +172,7 @@
                     <!-- Project: BlueMart -->
                     <div class="project-card glass-card">
                         <div class="project-img-wrapper">
-                            <img src="media/projects/bluemart.png" alt="BlueMart Mobile App Preview" class="project-img" loading="lazy">
+                            <img src="media/projects/bluemart.webp" alt="BlueMart Mobile App Preview" class="project-img" loading="lazy">
                             <div class="project-links-overlay">
                                 <a href="https://github.com/UG244/PPB2026_Kelompok04_BlueMart" target="_blank"
                                     class="project-link" aria-label="Lihat Source Code"><i
@@ -194,7 +196,7 @@
                     <!-- Project: Mobile Rework -->
                     <div class="project-card glass-card">
                         <div class="project-img-wrapper">
-                            <img src="media/projects/mobile_rework.png" alt="Mobile App Rework Preview" class="project-img" loading="lazy">
+                            <img src="media/projects/mobile_rework.webp" alt="Mobile App Rework Preview" class="project-img" loading="lazy">
                             <div class="project-links-overlay">
                                 <a href="https://github.com/UG244/mobile-rework" target="_blank"
                                     class="project-link" aria-label="Lihat Source Code"><i
@@ -217,7 +219,7 @@
                     <!-- Project: PWSK Team Project -->
                     <div class="project-card glass-card">
                         <div class="project-img-wrapper">
-                            <img src="media/projects/pwsk.png" alt="Proyek Web Client-Server Preview" class="project-img" loading="lazy">
+                            <img src="media/projects/pwsk.webp" alt="Proyek Web Client-Server Preview" class="project-img" loading="lazy">
                             <div class="project-links-overlay">
                                 <a href="https://novan2.github.io/PWSK-Tugas-Team/" target="_blank" class="project-link"
                                     aria-label="Demo Live"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
@@ -241,7 +243,7 @@
                     <!-- Project: To-Do App -->
                     <div class="project-card glass-card">
                         <div class="project-img-wrapper">
-                            <img src="media/projects/todo.png" alt="Aplikasi To-Do List Preview" class="project-img" loading="lazy">
+                            <img src="media/projects/todo.webp" alt="Aplikasi To-Do List Preview" class="project-img" loading="lazy">
                             <div class="project-links-overlay">
                                 <a href="https://novan2.github.io/tugas-to-do-app/" target="_blank" class="project-link"
                                     aria-label="Demo Live"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
@@ -264,7 +266,7 @@
                     <!-- Project: GUI JavaFX -->
                     <div class="project-card glass-card">
                         <div class="project-img-wrapper">
-                            <img src="media/projects/javafx.png" alt="Manajemen Data Mahasiswa JavaFX Preview" class="project-img" loading="lazy">
+                            <img src="media/projects/javafx.webp" alt="Manajemen Data Mahasiswa JavaFX Preview" class="project-img" loading="lazy">
                             <div class="project-links-overlay">
                                 <a href="https://github.com/Novan2/Gui-javaFX" target="_blank" class="project-link"
                                     aria-label="Lihat Source Code"><i class="fa-brands fa-github"></i></a>
@@ -385,9 +387,9 @@
 
     <!-- Lenis Smooth Scroll (Local to avoid CDN latency/blocks) -->
     <script src="js/lenis.min.js"></script>
-    <!-- Supabase JS Library -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/script.js?v=10"></script>
+    <!-- Supabase JS Library (deferred so it doesn't block initial page load) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/script.js?v=11"></script>
 </body>
 
 </html>

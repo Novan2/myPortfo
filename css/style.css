@@ -1155,6 +1155,8 @@ header.scrolled {
     background-color: #000312;
     position: relative;
     overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
 }
 
 .portfolio-section .container {
@@ -1377,6 +1379,8 @@ header.scrolled {
     background-color: #000000;
     position: relative;
     overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: 600px;
 }
 
 .contact-section .container {
