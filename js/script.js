@@ -60,7 +60,7 @@ function initPreloader() {
     if (!preloader) return;
 
     const startTime = Date.now();
-    const minDisplayDuration = 1500; // Minimal 1.5 detik agar animasi diamond & branding terlihat pas
+    const minDisplayDuration = 1200; // Minimal 1.2 detik
     let isDismissed = false;
 
     const dismissPreloader = () => {
@@ -383,20 +383,30 @@ function initContactForm() {
                     if (error) {
                         console.error('Supabase insert error:', error);
                         formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal mengirim pesan: ' + error.message + '</span>';
+                        submitBtn.classList.remove('btn-success');
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        setTimeout(() => { formStatus.innerHTML = ''; }, 6000);
                     } else {
-                        formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Pesan berhasil terkirim! Saya akan segera menghubungi Anda.</span>';
+                        formStatus.innerHTML = '';
+                        submitBtn.classList.add('btn-success');
+                        submitBtn.innerHTML = 'Terkirim <i class="fa-solid fa-check"></i>';
                         contactForm.reset();
                         if (formLoadTimeField) formLoadTimeField.value = Date.now(); // reset timer
+                        setTimeout(() => {
+                            submitBtn.classList.remove('btn-success');
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                        }, 4000);
                     }
                 })
                 .catch(error => {
                     console.error('Network/Supabase Error:', error);
                     formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Server database sedang tidak aktif (Supabase paused). Silakan hubungi langsung via WhatsApp atau Email.</span>';
-                })
-                .finally(() => {
+                    submitBtn.classList.remove('btn-success');
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
-                    setTimeout(() => { formStatus.innerHTML = ''; }, 7000);
+                    setTimeout(() => { formStatus.innerHTML = ''; }, 6000);
                 });
         });
     }
