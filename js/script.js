@@ -59,7 +59,10 @@ function initPreloader() {
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
 
+    const startTime = Date.now();
+    const minDisplayDuration = 1500; // Minimal 1.5 detik agar animasi diamond & branding terlihat pas
     let isDismissed = false;
+
     const dismissPreloader = () => {
         if (isDismissed) return;
         isDismissed = true;
@@ -68,31 +71,23 @@ function initPreloader() {
             document.querySelectorAll('.load-anim-top, .load-anim-bottom').forEach(el => {
                 el.classList.add('loaded');
             });
-        }, 250);
+        }, 300);
     };
 
-    // Check if hero video is present
-    const allHeroVideos = document.querySelectorAll('.hero-video-overlay');
-    let heroVideo = null;
-    allHeroVideos.forEach(v => {
-        if (getComputedStyle(v).display !== 'none') {
-            heroVideo = v;
-        }
-    });
+    const triggerDismiss = () => {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, minDisplayDuration - elapsed);
+        setTimeout(dismissPreloader, remaining);
+    };
 
-    if (heroVideo && heroVideo.readyState >= 2) {
-        setTimeout(dismissPreloader, 350);
-    } else if (heroVideo) {
-        heroVideo.addEventListener('loadeddata', () => setTimeout(dismissPreloader, 300), { once: true });
-        heroVideo.addEventListener('error', dismissPreloader, { once: true });
-        // Max 800ms fallback so visitor is never stuck!
-        setTimeout(dismissPreloader, 800);
+    // Trigger after window is loaded or fallback, ensuring at least 1.5s
+    if (document.readyState === 'complete') {
+        triggerDismiss();
     } else {
-        setTimeout(dismissPreloader, 400);
+        window.addEventListener('load', triggerDismiss, { once: true });
+        // Safety net fallback in case an external asset hangs
+        setTimeout(triggerDismiss, 2500);
     }
-
-    // Unconditional safety net: dismiss after 1000ms maximum
-    setTimeout(dismissPreloader, 1000);
 }
 
 /**
