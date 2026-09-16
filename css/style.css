@@ -1246,10 +1246,35 @@ header.scrolled {
 
 .project-tech {
     display: flex;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.project-tech span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    color: var(--text-secondary);
     font-family: var(--font-code);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+
+.project-tech span i {
     color: var(--accent-primary);
+    font-size: 0.9rem;
+}
+
+.project-card:hover .project-tech span {
+    border-color: rgba(0, 198, 255, 0.25);
+    background: rgba(0, 198, 255, 0.05);
+    color: var(--text-primary);
 }
 
 /* ==========================================================================
