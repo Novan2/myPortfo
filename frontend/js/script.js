@@ -7,6 +7,7 @@
 // 1. Core Initialization (Entry Point)
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
+    initLenisSmoothScroll();
     initScrollRestoration();
     initPreloader();
     initFooterYear();
@@ -188,6 +189,28 @@ function initNavigation() {
         });
     }
 
+let lenisInstance = null;
+
+/**
+ * 2.0 Lenis Inertia Smooth Scroll
+ */
+function initLenisSmoothScroll() {
+    if (typeof Lenis !== 'undefined') {
+        lenisInstance = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            touchMultiplier: 1.5,
+        });
+
+        function raf(time) {
+            lenisInstance.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    }
+}
+
     // Enhanced smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -196,14 +219,17 @@ function initNavigation() {
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 e.preventDefault();
-                const headerHeight = header ? header.offsetHeight : 80;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
+                if (lenisInstance) {
+                    lenisInstance.scrollTo(targetElement, { offset: -70 });
+                } else {
+                    const headerHeight = header ? header.offsetHeight : 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
