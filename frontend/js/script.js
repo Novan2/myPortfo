@@ -188,8 +188,25 @@ function initNavigation() {
         });
     }
 
-    // Smooth Scrolling for anchor links dihilangkan karena bentrok dengan CSS scroll-behavior: smooth di iOS.
-    // Kita akan menggunakan CSS scroll-padding-top sebagai gantinya.
+    // Enhanced smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#' || !targetId) return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                e.preventDefault();
+                const headerHeight = header ? header.offsetHeight : 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 }
 
 /**
@@ -220,7 +237,7 @@ function initTypingEffect() {
     const typingText = document.querySelector('.typing-text');
     if (!typingText) return;
 
-    const roles = ["Tech Enthusiast", "Web Designer", "UI/UX Engineer", "Frontend Developer"];
+    const roles = ["Web Developer", "UI/UX Designer", "Tech Enthusiast", "Frontend & Backend Developer"];
     let roleIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -336,7 +353,7 @@ function initContactForm() {
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
 
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
             submitBtn.disabled = true;
 
             const supabaseUrl = 'https://jfftdpzvhvvmmtnbkzqk.supabase.co';
@@ -349,21 +366,21 @@ function initContactForm() {
                 .then(({ error }) => {
                     if (error) {
                         console.error('Supabase insert error:', error);
-                        formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Failed to send message: ' + error.message + '</span>';
+                        formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Gagal mengirim pesan: ' + error.message + '</span>';
                     } else {
-                        formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Message sent successfully! I\'ll get back to you shortly.</span>';
+                        formStatus.innerHTML = '<span style="color: #27c93f;"><i class="fa-solid fa-circle-check"></i> Pesan berhasil terkirim! Saya akan segera menghubungi Anda.</span>';
                         contactForm.reset();
                         if (formLoadTimeField) formLoadTimeField.value = Date.now(); // reset timer
                     }
                 })
                 .catch(error => {
-                    console.error('Network Error:', error);
-                    formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Unable to connect to the server. Please try again later.</span>';
+                    console.error('Network/Supabase Error:', error);
+                    formStatus.innerHTML = '<span style="color: #ff3366;"><i class="fa-solid fa-circle-xmark"></i> Server database sedang tidak aktif (Supabase paused). Silakan hubungi langsung via WhatsApp atau Email.</span>';
                 })
                 .finally(() => {
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
-                    setTimeout(() => { formStatus.innerHTML = ''; }, 5000);
+                    setTimeout(() => { formStatus.innerHTML = ''; }, 7000);
                 });
         });
     }
